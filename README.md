@@ -31,5 +31,5 @@ cmake --build build
 ./build/Lab1
 ```
 
-If using Visual Studio, you only need to run the first command. Then you can use Visual Studio as normal.
+If using Visual Studio, you should only need to run the first command. Then you can use Visual Studio as normal. That is, Visual Studio has CMake integration, and it should run the other commands for you. There may be a way to have it run all of the commands. I have not yet tested this.
 
