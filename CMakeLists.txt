@@ -15,6 +15,7 @@ project(Lab1)
 add_executable(
  Lab1
  src/lab1.cpp
+ src/rand.h
 )
 
 target_link_libraries(Lab1 sfml-graphics)
