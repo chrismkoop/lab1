@@ -1,5 +1,8 @@
+// lab1.cpp
+
 #include <SFML/Graphics.hpp>
 #include "rand.h"
+#include "Config.h"
 
 void render(sf::RenderWindow & window, const std::vector<sf::CircleShape> & shapes) {
   // always clear!
@@ -25,26 +28,47 @@ void processEvents(sf::RenderWindow & window, std::vector<sf::CircleShape> & sha
 
 void update(sf::Time dt, std::vector<sf::CircleShape> & shapes) {
   float s = dt.asSeconds();
+  Config& config = Config::getInstance();
   for (auto & shape : shapes) {
     shape.move(20.0f * s, 20.0f * s);
+    if (shape.getPosition().x > config.getWindowWidth())
+    {
+      shape.setPosition(0, shape.getPosition().y);
+    }
+    else if (shape.getPosition().x < 0)
+    {
+      shape.setPosition(config.getWindowWidth(), shape.getPosition().y);
+    }
+
+    if (shape.getPosition().y > config.getWindowHeight())
+    {
+      shape.setPosition(shape.getPosition().x, 0);
+    }
+    else if (shape.getPosition().y < 0)
+    {
+      shape.setPosition(shape.getPosition().x, config.getWindowHeight());
+    }
   }
 }
 
-int main() {
-  sf::RenderWindow window{sf::VideoMode{1000, 600}, "Lab1"};
+int main(int argc, char *argv[]) {
+  // get config values
+  Config& config = Config::getInstance(argc, argv);
+
+  sf::RenderWindow window{sf::VideoMode{config.getWindowWidth(), config.getWindowHeight()}, "Lab1"};
 
   std::vector<sf::CircleShape> shapes{};
 
-  for (int i{}; i < 10; ++i) {
-    sf::CircleShape shape{22.0f, 100};
+  for (int i{}; i < config.getCircleNum(); ++i) {
+    sf::CircleShape shape{config.getCircleSize(), 100};
     shape.setFillColor(sf::Color::Blue);
     shape.setOutlineColor(sf::Color::White);
-    shape.setPosition(rand(22.0f, 1000 - 22.0f), rand(22.0f, 600 - 22.0f));
+    shape.setPosition(rand(22.0f, config.getWindowWidth() - 22.0f), rand(22.0f, config.getWindowHeight() - 22.0f));
     shapes.push_back(shape);
   }
 
   // for info on game loops:
-  //   https://subscription.packtpub.com/book/game+development/9781849696845/1/ch01lvl1sec11/game-loops-and-frames
+  // https://subscription.packtpub.com/book/game+development/9781849696845/1/ch01lvl1sec11/game-loops-and-frames
   sf::Clock clock;
 
   sf::Time t{sf::Time::Zero}; // time
@@ -63,3 +87,5 @@ int main() {
     render(window, shapes);
   }
 }
+
+// end of lab1.cpp
