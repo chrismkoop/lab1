@@ -1,4 +1,4 @@
-// Singleton Config class
+// Config.h
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -15,10 +15,10 @@ class Config
         string filename;
 
         // Actual config parameters
-        int windowWidth;
-        int windowHeight;
-        int circleSize;
-        int circleNum;
+        uint windowWidth;
+        uint windowHeight;
+        float circleSize;
+        uint circleNum;
 
         Config(){}
         Config(const Config&) = delete;
@@ -41,22 +41,22 @@ class Config
             return instance;
         }
 
-        int getWindowWidth()
+        uint getWindowWidth()
         {
             return windowWidth;
         }
 
-        int getWindowHeight()
+        uint getWindowHeight()
         {
             return windowHeight;
         }
 
-        int getCircleSize()
+        float getCircleSize()
         {
             return circleSize;
         }
 
-        int getCircleNum()
+        uint getCircleNum()
         {
             return circleNum;
         }
@@ -105,3 +105,5 @@ class Config
 };
 
 Config* Config::instance = nullptr;
+
+// end of config.h

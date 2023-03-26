@@ -1,3 +1,5 @@
+// lab1.cpp
+
 #include <SFML/Graphics.hpp>
 #include "rand.h"
 #include "Config.h"
@@ -86,3 +88,5 @@ int main(int argc, char *argv[]) {
     render(window, shapes);
   }
 }
+
+// end of lab1.cpp

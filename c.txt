@@ -1,0 +1,4 @@
+windowWidth=600
+windowHeight=400
+circleNum=10
+circleSize=30
